@@ -39,8 +39,16 @@ export default new VueRouter({
       component: () => import('../views/login/login.vue')
     },
     {
+      path: '/msg_login',
+      component: () => import('../views/login/msg_login.vue')
+    },
+    {
       path: '/reg',
       component: () => import('../views/reg/reg.vue')
+    },
+    {
+      path: '/coupon-list',
+      component: () => import('../views/coupon-list/index.vue')
     },
     {
       path: '*',
