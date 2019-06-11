@@ -8,7 +8,7 @@
     </div>
     <div class="group-wrapper">
       <div class="group-group-wrapper-gkdar">
-        <router-link to="" class="group-item">
+        <router-link to="/order" class="group-item">
           <i class="iconfont icon-dianyingpiao"></i>
           <span role="name">电影票</span>
         </router-link>
@@ -20,7 +20,7 @@
         </router-link>
       </div>
       <div class="item-item-wrapper-1vu9">
-          <router-link to="">
+          <router-link to="/detail">
             <span>淘票票乐影卡</span>
             <span></span>
             </router-link>
@@ -84,7 +84,6 @@
     background-color: #fff;
     flex-direction: column;
     padding-left: 10px;
-    padding-right: 20px;
       .group-group-wrapper-gkdar{
           display: flex;
           background-color: #fff;
@@ -95,6 +94,8 @@
             flex-direction: column;
             align-items: center;
             margin-top: 47px;
+            width: 100%;
+            height: 100%;
               .iconfont{
                 font-size: 28px;
                 margin-bottom:10px
@@ -114,9 +115,10 @@
         .border-top;
         a{
           position: relative;
-          height: 100%;
           display: flex;
           align-items: center;
+          width: 100%;
+          height: 100%;
           .item-sjx;
           .item-item-desc-2nesv{
             color: #bcbcbc;

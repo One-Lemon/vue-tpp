@@ -36,10 +36,12 @@ export default new VueRouter({
     },
     {
       path: '/login',
+      name: 'login',
       component: () => import('../views/login/login.vue')
     },
     {
       path: '/msg_login',
+      name: 'msg_login',
       component: () => import('../views/login/msg_login.vue')
     },
     {
@@ -48,7 +50,18 @@ export default new VueRouter({
     },
     {
       path: '/coupon-list',
+      name: 'coupon-list',
       component: () => import('../views/coupon-list/index.vue')
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: () => import('../views/charge-card/detail.vue')
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: () => import('../views/mine/order.vue')
     },
     {
       path: '*',

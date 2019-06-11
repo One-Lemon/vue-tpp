@@ -22,13 +22,13 @@
 <script>
 const coupon = {
   available: 1,
-  condition: '无使用门槛\n最多优惠12元',
-  reason: '',
-  value: 150,
-  name: '优惠券名称',
+  condition: '先给个2000贿赂下\n最多优惠1000元',
+  reason: '你的颜值不过关，请换个漂亮的妹子来使用',
+  value: 100000,
+  name: '淘票票颜值优惠卷',
   startAt: 1489104000,
   endAt: 1514592000,
-  valueDesc: '1.5',
+  valueDesc: '1000',
   unitDesc: '元'
 }
 export default {
