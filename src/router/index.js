@@ -50,11 +50,11 @@ export default new VueRouter({
     },
     {
       path: '/city',
-      component: () => import('../views/city/city.vue')
+      component: () => import('../views/city/index.vue')
     },
     {
       path: '/details',
-      component: () => import('../views/details/details.vue')
+      component: () => import('../views/details/index.vue')
     },
     {
       path: '/login',
