@@ -6,13 +6,30 @@ Vue.use(VueRouter)
 export default new VueRouter({
   routes: [
     {
-      path: '/index',
+      path: '/',
       component: () => import('../views/index/index.vue'),
       children: [
         {
           path: 'films',
-          name: 'film',
-          component: () => import('../views/index/films.vue')
+          name: 'films',
+          component: () => import('../views/index/films.vue'),
+          children: [
+            {
+              path: 'will',
+              name: 'will',
+              component: () => import('../views/index/will.vue')
+            },
+            {
+              path: 'list',
+              name: 'list',
+              component: () => import('../views/index/list.vue')
+            },
+            {
+              path: '/',
+              // component: () => import('../views/index/list.vue')
+              redirect: 'list'
+            }
+          ]
         },
         {
           path: 'cinema',
@@ -23,6 +40,11 @@ export default new VueRouter({
           path: 'mine',
           name: 'mine',
           component: () => import('../views/index/mine.vue')
+        },
+        {
+          path: '/',
+          // component: () => import('../views/index/films.vue')
+          redirect: 'films'
         }
       ]
     },
@@ -44,7 +66,7 @@ export default new VueRouter({
     },
     {
       path: '*',
-      component: () => import('../views/index/index.vue')
+      redirect: '/films'
     }
   ]
 })
