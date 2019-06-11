@@ -43,6 +43,8 @@ export default {
   position: relative;
   top: 0;
   left: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
   .city {
     width: 28vw;
     color: #999;
