@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 export default new VueRouter({
   routes: [
     {
-      path: '/index',
+      path: '/',
       component: () => import('../views/index/index.vue'),
       children: [
         {
@@ -15,7 +15,7 @@ export default new VueRouter({
           component: () => import('../views/index/films.vue')
         },
         {
-          path: 'cinema',
+          path: 'cinemas',
           name: 'cinema',
           component: () => import('../views/index/cinema.vue')
         },
