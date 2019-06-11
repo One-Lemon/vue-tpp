@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: '/',
@@ -32,14 +33,17 @@ export default new VueRouter({
           ]
         },
         {
-          path: 'cinemas',
+          path: 'cinema',
           name: 'cinema',
           component: () => import('../views/index/cinema.vue')
         },
         {
           path: 'mine',
           name: 'mine',
-          component: () => import('../views/index/mine.vue')
+          component: () => import('../views/index/mine.vue'),
+          meta: {
+            requireLogin: true
+          }
         },
         {
           path: '/',
@@ -95,3 +99,34 @@ export default new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // 路由拦截
+  if (to.meta.requireLogin) {
+    // 判断是否有登录
+    if (store.state.user.userInfo) {
+      // 有登录
+      next()
+    } else {
+      // 没有登录
+      // next('/login')
+      // eslint-disable-next-line no-unused-expressions
+      // <van-loading type="spinner" />
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+// 全局后置守卫，后置守卫没有 next
+router.afterEach((to, from) => {
+
+})
+
+export default router

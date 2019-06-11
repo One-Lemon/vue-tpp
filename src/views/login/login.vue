@@ -18,14 +18,25 @@
       </div>
     </div>
     <div class="am-field am-fieldBottom">
-      <button class="am-button am-button-submit">登 录</button>
+      <button class="am-button am-button-submit" @click="handleLogin">登 录</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    handleLogin () {
+      setTimeout(() => {
+        // let userInfo = $store.state.userInfo
+        // window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        // 登录成功，跳转回首页
+        // this.$router.replace('/card');
+        let redirect = this.$route.query.redirect || '/mine'
+        this.$router.replace(redirect)
+      }, 2000)
+    }
+  }
 }
 </script>
 

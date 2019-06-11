@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="am-field am-footer">
-      <a href="">免费注册</a>
+      <a href="/reg">免费注册</a>
     </div>
     <div class="am-field am-fieldBottom">
       <button class="am-button am-button-submit">登 录</button>
