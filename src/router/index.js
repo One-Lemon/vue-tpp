@@ -43,6 +43,10 @@ export default new VueRouter({
       component: () => import('../views/reg/reg.vue')
     },
     {
+      path: '/search',
+      component: () => import('../views/search/search.vue')
+    },
+    {
       path: '*',
       component: () => import('../views/index/index.vue')
     }

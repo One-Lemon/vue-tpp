@@ -21,7 +21,10 @@
         <i class="iconfont icon-xiala"></i>
       </li>
       <li class="border-left">
-        <i class="iconfont icon-fangdajing"></i>
+          <router-link to="/search">
+            <i class="iconfont icon-fangdajing"></i>
+          </router-link>
+        
       </li>
     </ul>
     
