@@ -32,7 +32,7 @@ export default new VueRouter({
           ]
         },
         {
-          path: 'cinemas',
+          path: 'cinema',
           name: 'cinema',
           component: () => import('../views/index/cinema.vue')
         },
