@@ -1,0 +1,30 @@
+.border-top{
+  &::before{
+    pointer-events: none;
+    position: absolute;
+    content: "";
+    height: 1px;
+    background: hsla(0,0%,51.4%,.3);
+    left: 0;
+    right: 0;
+    top: 0;
+    transform-origin: 0 0;
+    transform: scaleY(.5);
+  }
+}
+.item-sjx{
+  &::after{
+    content: "";
+    width: 12px;
+    height: 10px;
+    right: 5px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-image: url(../image/yjt.png);
+    margin: auto;
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
