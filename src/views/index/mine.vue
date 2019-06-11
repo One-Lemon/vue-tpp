@@ -46,7 +46,6 @@
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 30px;
-    width: 100%;
     background-size: cover;
     background-position: 50%;
     background-repeat: no-repeat;
