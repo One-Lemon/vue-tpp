@@ -4,18 +4,14 @@ import router from './router'
 import store from './store'
 import './styles/base.less'
 
-<<<<<<< HEAD
-import { Tabbar, TabbarItem, Tab, Tabs, Toast } from 'vant'
+import { Tabbar, TabbarItem, Tab, Tabs, Toast, CouponCell, CouponList, Popup, Loading } from 'vant'
 Vue
   .use(Tabbar)
   .use(TabbarItem)
   .use(Tab)
   .use(Tabs)
   .use(Toast)
-=======
-import { CouponCell, CouponList, Popup, Loading } from 'vant'
-Vue.use(CouponCell).use(CouponList).use(Popup).use(Loading)
->>>>>>> mine
+  .use(CouponCell).use(CouponList).use(Popup).use(Loading)
 Vue.config.productionTip = false
 
 new Vue({

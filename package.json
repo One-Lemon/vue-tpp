@@ -27,5 +27,18 @@
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.10"
-  }
+  },
+  "description": "```\r npm install\r ```",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/One-Lemon/vue-tpp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/One-Lemon/vue-tpp/issues"
+  },
+  "homepage": "https://github.com/One-Lemon/vue-tpp#readme"
 }

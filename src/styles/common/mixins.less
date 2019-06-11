@@ -1,0 +1,44 @@
+// 公共的样式块
+.border-left {
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 6.1vw;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #e2e2e2;
+    transform: scaleX(.5);
+  }
+}
+
+.border-bottom {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 1px;
+    background: #ededed;
+    transform: scaleY(.5);
+  }
+}
+
+.border {
+  position: relative;
+  &::after {
+    content: '';
+    transform: scale(.5);
+    position: absolute;
+    border: 1px solid #ff5f16;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-radius: 4px;
+  }
+}

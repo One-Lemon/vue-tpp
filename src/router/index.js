@@ -32,7 +32,7 @@ export default new VueRouter({
           ]
         },
         {
-          path: 'cinema',
+          path: 'cinemas',
           name: 'cinema',
           component: () => import('../views/index/cinema.vue')
         },
@@ -84,6 +84,10 @@ export default new VueRouter({
       path: '/order',
       name: 'order',
       component: () => import('../views/mine/order.vue')
+    },
+    {
+      path: '/search',
+      component: () => import('../views/search/search.vue')
     },
     {
       path: '*',
