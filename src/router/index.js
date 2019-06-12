@@ -11,18 +11,17 @@ export default new VueRouter({
       children: [
         {
           path: 'films',
-          name: 'films',
           component: () => import('../views/index/films.vue'),
           children: [
-            {
-              path: 'list',
-              name: 'list',
-              component: () => import('../views/index/list.vue')
-            },
+            // {
+            //   path: 'list',
+            //   name: 'list',
+            //   component: () => import('../views/index/list.vue')
+            // },
             {
               path: '/',
-              // component: () => import('../views/index/list.vue')
-              redirect: 'list'
+              component: () => import('../views/index/list.vue')
+              // redirect: 'list'
             }
           ]
         },

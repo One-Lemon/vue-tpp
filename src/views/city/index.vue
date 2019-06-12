@@ -2,15 +2,50 @@
   <div>
     <div class="title">
     <span>选择城市</span>
-    <i class="close">x</i>
+    <i class="close" @click="close">x</i>
     </div>
     <div class="s-title">
       <h3>当前</h3>
+      <ul class="city-ul">
+        <li class="city-li">{{ currentCity }}</li>
+      </ul>
+    </div>
+    <div class="s-title">
+      <h3>GPS</h3>
+      <ul class="city-ul">
+        <li class="city-li">{{ currentCity }}</li>
+      </ul>
+    </div>
+    <div class="s-title">
+      <h3 @click="fn">热门</h3>
+      <ul class="city-ul">
+        <li class="city-li" v-for="city in cityList.filter(list => list.isHot===1)"
+        :key="city.cityId"
+        >
+        {{ city.name }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
+  computed: {
+    ...mapState('city', ['currentCity', 'cityList'])
+  },
+  methods: {
+    ...mapActions('city', ['getCityList']),
+    close () {
+      console.log(this.$router.back())
+    },
+    fn () {
+      console.log(this.cityList.length)
+    }
+  },
+  created () {
+    this.getCityList()
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -36,14 +71,23 @@ export default {
     }
   }
   .s-title{
-    margin: 0;
-    padding: 9px 12px;
-    background: #eee;
-    color: #777;
-    font-size: 12px;
-    font-weight: 400;
     h3{
-      margin: 3px 0;
+      padding:12px;
+      background: #eee;
+      color: #777;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .city-ul{
+      margin: 0;
+      padding: 0 0 0 15px;
+      color: #777;
+      .city-li{
+        display: block;
+        padding: 12px 12px 12px 0;
+        overflow: hidden;
+        font-size: 15px;
+      }
     }
   }
 </style>
