@@ -1,79 +1,94 @@
 <template>
   <div id="cinemas">
-
-   <Header></Header>
-
-   <ul>
-     <li class="border-bottom"
-      v-for="cinema in cinemaList"
-      :key="cinema.cinemaId"
-     >
-     <router-link to="/cinemaDetails">
-       <p class="cinemaName">
-         <span>{{cinema.name}}</span>
-         <span>
-           <i class="price">￥{{cinema.lowPrice/100}}</i>
-           <i style="color:#ff4d64;font-size:6px">元</i>
-           <i style="color:#999;font-size:6px">起</i>
-           </span>
-       </p>
-       <p class="address">{{cinema.address}}</p>
-     </router-link>
-     </li>
-   </ul>
-
+    <div class="Headnav">
+      <Headnav></Headnav>
+    </div>
+    
+    <ul>
+      <li class="border-bottom" v-for="cinema in cinemaList" :key="cinema.cinemaId">
+        <router-link to="/cinemaDetails">
+          <p class="cinemaName">
+            <span>{{cinema.name}}</span>
+            <span>
+              <i class="price">￥{{cinema.lowPrice/100}}</i>
+              <i style="color:#ff4d64;font-size:6px">元</i>
+              <i style="color:#999;font-size:6px">起</i>
+            </span>
+          </p>
+          <p class="address">{{cinema.address}}</p>
+        </router-link>
+      </li>
+    </ul>
   </div>
-
 </template>
 
 <script>
-import '@/styles/base.less'
-import Header from '@/components/Header/index.vue'
-import { mapActions, mapState } from 'vuex'
+import "@/styles/base.less";
+import Headnav from "@/components/Header/index.vue";
+import { mapActions, mapState } from "vuex";
 
 export default {
-
   components: {
-    Header
+    Headnav
   },
 
   computed: {
-    ...mapState('cinemas', ['cinemaList'])
+    ...mapState("cinemas", ["cinemaList"])
   },
 
   methods: {
-    ...mapActions('cinemas', ['getCinemaList'])
+    ...mapActions("cinemas", ["getCinemaList"])
   },
 
-  created () {
-    this.getCinemaList()
+  created() {
+    this.getCinemaList();
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-#cinemas{
-  width:100%;
+#cinemas {
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-  li{
-    display:block;
-    width:100%;
+.Headnav {
+  width:100%;
+  flex: 1;
+  height: 45px;
+  position: fixed;
+  top:0;
+  left:0;
+  background:#fff;
+  z-index: 10;
+}
+ul {
+  margin-top:45px;
+  flex: 1;
+  overflow-y: auto;
+  padding:0 4vw;
+  box-sizing: border-box;
+  li {
+    display: block;
+    width: 100%;
     font-size: 12px;
     line-height: 200%;
-    padding:4vw;
+    padding:4vw 0;
     overflow-x: hidden;
     box-sizing: border-box;
-    p{
+    p {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: top;
       margin-right: 10px;
       box-sizing: border-box;
-      }
-    .cinemaName{
-      width:100%;
+    }
+    .cinemaName {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       font-size: 1.0625rem;
@@ -83,21 +98,21 @@ export default {
       color: #000;
       box-sizing: border-box;
     }
-    .address{
+    .address {
       width: 72vw;
       color: #666;
-      font-size: .8125rem;
+      font-size: 0.8125rem;
       line-height: 1.5;
     }
-    .price{
+    .price {
       line-height: 6.4vw;
       vertical-align: baseline;
       color: #ff4d64;
-      margin-right: .3vw;
-      font-size: .9375rem;
+      margin-right: 0.3vw;
+      font-size: 0.9375rem;
       font-weight: 400;
       padding-left: 4vw;
     }
-
   }
+}
 </style>
