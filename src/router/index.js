@@ -15,11 +15,6 @@ export default new VueRouter({
           component: () => import('../views/index/films.vue'),
           children: [
             {
-              path: 'will',
-              name: 'will',
-              component: () => import('../views/index/will.vue')
-            },
-            {
               path: 'list',
               name: 'list',
               component: () => import('../views/index/list.vue')

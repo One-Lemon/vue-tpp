@@ -1,35 +1,48 @@
 <template>
   <div class="movies" @scroll="addMore">
     <div id="tab">
-      <div  class="address"><router-link to="">地址</router-link></div>
-      <router-link to="list" class="tabs active">正在热映</router-link>
-      <router-link to="will" class="tabs">即将上映</router-link>
+      <div  class="address"><router-link to="/city">地址</router-link></div>
+      <router-link to="list" class="tabs" :class="{ active: activeClass===0?true:false}" @click.native="active(0)">正在热映</router-link>
+      <router-link to="list" class="tabs" :class="{ active: activeClass===1?true:false}" @click.native="active(1)">即将上映</router-link>
     </div>
-    <router-view :list="hotList"></router-view>
+    <router-view :list="filmsList"></router-view>
   </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      active: 2
+      activeClass: 0
     }
   },
   computed: {
-    ...mapState('films', ['hotList'])
+    ...mapState('films', ['filmsList'])
   },
   methods: {
-    ...mapActions('films', ['getHotList']),
+    ...mapActions('films', ['getFilmsList']),
+    ...mapMutations('films', ['setCurFilmType', 'resetFilmList']),
     addMore () {
       let open = this.$el.scrollHeight - this.$el.scrollTop - this.$el.clientHeight
       if (open < 50) {
-        console.log(open)
+        this.getFilmsList()
       }
+    },
+    active (index) {
+      if (index !== this.activeClass) {
+        if (index === 0) {
+          this.setCurFilmType(1)
+        } else {
+          this.setCurFilmType(2)
+        }
+        this.resetFilmList()
+        this.getFilmsList()
+      }
+      this.activeClass = index
     }
   },
   created () {
-    this.getHotList()
+    this.getFilmsList()
   }
 }
 </script>

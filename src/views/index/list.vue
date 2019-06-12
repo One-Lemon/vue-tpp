@@ -4,13 +4,13 @@
     class="m-item">
       <div class="m-info">
         <div class="m-photo"><img :src="item.poster" alt=""></div>
-        <div class="m-content">
+        <router-link tag="div" to="/details" class="m-content">
           <div class="title">{{ item.name }}<i class="watch-type">{{ item.item.name }}</i></div>
           <div class="grade">淘票票评分 <i class="i-grade">{{ item.grade }}</i> </div>
           <div class="director">导演：{{ item.director }}</div>
           <div class="actors">演员：{{ item.actors | actorsName}}</div>
-        </div>
-        <div class="m-btn">
+        </router-link>
+        <div class="m-btn" @click="fn">
           <a>购票</a>
         </div>
       </div>
@@ -25,6 +25,9 @@ export default {
   filters: {
     actorsName (value) {
       let name = ''
+      if (!value) {
+        return
+      }
       for (var i = 0; i < value.length; i++) {
         if (value[i].role !== '导演') {
           name += value[i].name + ' '
@@ -35,11 +38,8 @@ export default {
   },
   methods: {
     fn () {
-      console.log(111)
+      console.log(this.list)
     }
-  },
-  created () {
-    console.log(this.list)
   }
 }
 </script>
