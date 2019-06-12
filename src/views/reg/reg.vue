@@ -4,58 +4,57 @@
       <div class="logo"></div>
       <div class="am-list">
         <div class="am-list-item">
-          <input type="text" class="lg-reqguired"  placeholder="请设置用户">
+          <input type="text" v-model="username" class="lg-reqguired"  placeholder="请设置用户名">
         </div>
         <div class="am-list-item">
-          <input type="password" class="lg-reqguired lg-password" placeholder="请设置密码">
+          <input type="password" v-model="password"  class="lg-reqguired lg-password" placeholder="请设置密码">
         </div>
       </div>
       <div>
         <div class="am-field am-footer">
           <router-link to="/msg_login">短信验证码注册</router-link>
-          <!-- <router-link to>免费注册</router-link> -->
         </div>
       </div>
       <div class="am-field am-fieldBottom">
-        <button class="am-button am-button-submit" @click="fn1">立即注册</button>
+        <button class="am-button am-button-submit" @click="handleRegister">立即注册</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 export default {
-  computed: {
-    ...mapState('user', ['userInfo', 'tiShi', ' isLogin']),
-    username: {
-      get () {
-        return this.$store.state.username
-      },
-      set (value) {
-        console.log(value)
-        this.$store.commit('user/chgUserName', value)
-      }
-    },
-    password: {
-      get () {
-        return this.$store.state.password
-      },
-      set (value) {
-        console.log(value)
-        this.$store.commit('user/chgUserPwd', value)
-      }
+  data () {
+    return {
+      username: '',
+      password: ''
     }
   },
   methods: {
-    // ...mapMutations('user', ['addUser']),
-    // ...mapActions('user', ['fn1', 'initUser'])
-    ...mapActions('user', ['fn1'])
-
+    checkFormData () {
+      if (!this.username || !this.password) {
+        this.$toast('请填写用户名密码！！！')
+        return false
+      }
+      return true
+    },
+    handleRegister () {
+      this.$store.dispatch('register', { username: this.username, password: this.password })
+        .then(() => {
+          // 注册成功
+          this.$toast({
+            duration: 3000,
+            message: '注册成功, 3秒后跳转登录页'
+          })
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 3000)
+        })
+        .catch(err => {
+          this.$toast(err.message)
+        })
+    }
   }
-  // created () {
-  //   this.initUser()
-  // }
 }
 </script>
 
