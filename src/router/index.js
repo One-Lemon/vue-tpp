@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store'
-
+import { Toast } from 'vant'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -42,7 +41,7 @@ const router = new VueRouter({
           name: 'mine',
           component: () => import('../views/index/mine.vue'),
           meta: {
-            requireLogin: true
+            isLogin: true
           }
         },
         {
@@ -100,11 +99,16 @@ const router = new VueRouter({
   ]
 })
 
+// eslint-disable-next-line no-unused-expressions
 router.beforeEach((to, from, next) => {
   // 路由拦截
-  if (to.meta.requireLogin) {
+  if (to.meta.isLogin) {
     // 判断是否有登录
-    if (store.state.user.userInfo) {
+    if (window.localStorage.getItem('userInfo')) {
+      Toast.loading({
+        duration: 0,
+        message: '登录中....'
+      })
       // 有登录
       next()
     } else {

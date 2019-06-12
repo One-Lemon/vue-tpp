@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div id="app1">
     <div>
       <div class="logo"></div>
       <div class="am-list">
         <div class="am-list-item">
-          <input type="text" class="lg-reqguired" v-model="username" placeholder="请设置用户">
+          <input type="text" class="lg-reqguired"  placeholder="请设置用户">
         </div>
         <div class="am-list-item">
-          <input type="password" class="lg-reqguired lg-password" v-model="password" placeholder="请设置密码">
+          <input type="password" class="lg-reqguired lg-password" placeholder="请设置密码">
         </div>
       </div>
       <div>
@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState('user', ['username', 'password', 'userInfo']),
+    ...mapState('user', ['userInfo', 'tiShi', ' isLogin']),
     username: {
       get () {
         return this.$store.state.username
@@ -39,7 +39,7 @@ export default {
     },
     password: {
       get () {
-        return this.$store.state.passworf
+        return this.$store.state.password
       },
       set (value) {
         console.log(value)
@@ -48,12 +48,14 @@ export default {
     }
   },
   methods: {
-    // ...mapMutations('user', ['addUser'])
-    ...mapActions('user', ['fn1', 'initUser'])
-  },
-  created () {
-    this.initUser()
+    // ...mapMutations('user', ['addUser']),
+    // ...mapActions('user', ['fn1', 'initUser'])
+    ...mapActions('user', ['fn1'])
+
   }
+  // created () {
+  //   this.initUser()
+  // }
 }
 </script>
 

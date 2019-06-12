@@ -1,7 +1,11 @@
+import { Toast } from 'vant'
+
 const state = {
-  username: '',
-  password: '',
-  userInfo: null
+  userInfo: {
+    username: '',
+    password: ''
+  },
+  isLogin: false
 }
 const mutations = {
   chgUserName (state, payload) {
@@ -9,48 +13,29 @@ const mutations = {
   },
   chgUserPwd (state, payload) {
     state.password = payload
-  },
-  addUser (state) {
-    let userinfo = {
-      username: state.username,
-      password: state.password
-    }
-    state.userInfo.push(userinfo)
-  },
-  initUser (state, userInfo) {
-    state.userInfo = userInfo
   }
 }
 
+const methods = {
+
+}
 const getters = {
 
 }
 const actions = {
-  fn1 ({ state, commit }) {
-    // 1、ajax请求
-    fetch('http://localhost:3000/userInfo', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name: state.username, pwd: state.password })
+  fn1 ({ state }) {
+    Toast.loading({
+      duration: 0,
+      message: '注册成功，稍后返回登录界面...'
     })
-      .then(response => response.json())
-      .then(res => {
-        console.log(res)
-        commit({
-          type: 'addUser'
-        })
-        location.href = '/login'
-      })
-  },
-  initUser ({ commit }) {
-    fetch('http://localhost:3000/userInfo')
-      .then(response => response.json())
-      .then(res => {
-        console.log(res)
-        commit('initUser', res)
-      })
+    let userInfo = {
+      name: state.username,
+      pwd: state.password
+    }
+    if (userInfo.length > 0) {
+      userInfo.push(userInfo)
+      window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+    }
   }
 }
 export default {
@@ -58,5 +43,6 @@ export default {
   state,
   mutations,
   getters,
-  actions
+  actions,
+  methods
 }
