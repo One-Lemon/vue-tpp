@@ -11,7 +11,7 @@
           <div class="actors">演员：{{ item.actors | actorsName}}</div>
         </router-link>
         <div class="m-btn" @click="fn">
-          <a>购票</a>
+          <a>{{ btn }}</a>
         </div>
       </div>
     </div>
@@ -20,7 +20,8 @@
 <script>
 export default {
   props: {
-    'list': Array
+    'list': Array,
+    'btn': String
   },
   filters: {
     actorsName (value) {

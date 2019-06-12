@@ -1,11 +1,11 @@
 <template>
   <div class="movies" @scroll="addMore">
     <div id="tab">
-      <div  class="address"><router-link to="/city">地址</router-link></div>
+      <div  class="address"><router-link to="/city">{{ currentCity.name }}</router-link></div>
       <router-link to="list" class="tabs" :class="{ active: activeClass===0?true:false}" @click.native="active(0)">正在热映</router-link>
       <router-link to="list" class="tabs" :class="{ active: activeClass===1?true:false}" @click.native="active(1)">即将上映</router-link>
     </div>
-    <router-view :list="filmsList"></router-view>
+    <router-view :list="filmsList" :btn="activeClass===0?'购买':'预售'"></router-view>
   </div>
 </template>
 <script>
@@ -17,7 +17,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('films', ['filmsList'])
+    ...mapState('films', ['filmsList']),
+    ...mapState('city', ['currentCity'])
   },
   methods: {
     ...mapActions('films', ['getFilmsList']),

@@ -6,14 +6,20 @@
     >
       <div class="content">
         <div class="video-header">
-          <div class="poster">
+          <div
+            class="poster"
+            :style="{'background-image': 'url'+'('+detail.poster+')'}"
+          >
             <div class="play-button"></div>
             <div class="back-gradient"></div>
           </div>
         </div>
         <div class="show-info">
           <div class="poster-wrap">
-            <div class="poster"></div>
+            <div
+              class="poster"
+              :style="{'background-image': 'url'+'('+detail.poster+')'}"
+            ></div>
           </div>
           <div class="info-container">
             <div class="movie-name">
@@ -24,7 +30,7 @@
             </div>
             <div class="movie-detail">
               <p class="show-intro">{{detail.category}} / {{detail.nation}} / {{detail.runtime}}分钟</p>
-              <p class="show-intro">2019-06-06 中国大陆上映 </p>
+              <p class="show-intro">2019-xx-xx 中国大陆上映 </p>
               <p class="show-intro">
                 <span class="want ">105.4万人想看</span>
                   / ⼤V推荐度 26%
@@ -54,22 +60,77 @@
       <div>
         <div class="tab-item">
           <ul class="tab-container">
-            <!-- <li class="tab-item"
-              v-for="tab in tabs"
+            <li class="tab-item"
+              v-for="(tab, index) in tabs"
               :key="tab.id"
-            >{{tab.name}}</li> -->
-            <li class="tab-item active">简介</li>
-            <li class="tab-item">影评</li>
-            <li class="tab-item">更多</li>
+              @click="qiehuan(index)"
+              :class="{active:index==ins}"
+            >{{tab.name}}</li>
           </ul>
           <div class="line-container">
-            <div class="line" style="left: 55px"></div>
+            <div
+              class="line"
+              :style="{left: lefts+'px'}"
+            ></div>
           </div>
         </div>
       </div>
       <div>
         <div class="show-desc">
-          <p>{{detail.synopsis}}</p>
+          <p class="line-limit"
+            :class="{ 'line-limited': isLimited }"
+            @click="zhankai()"
+          >
+            {{detail.synopsis}}
+            <a
+              class="show-desc-expand-btn"
+              v-if="isOk"
+            >
+              展开
+            </a>
+          </p>
+        </div>
+        <div class="show-artists">
+          <h2>演职人员</h2>
+          <div class="show-artists-container">
+            <div class="show-artist-list">
+              <a class="show-artist"
+                v-for="(item, index) in detail.actors"
+                :key="index"
+              >
+                <div class="show-poster" :style="{'background-image': 'url'+'('+item.avatarAddress+')'}"></div>
+                <dl>
+                  <dt>{{ item.name }}</dt>
+                  <dd class="profession director">{{item.role}}</dd>
+                </dl>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="show-albums">
+          <h2>视频和剧照</h2>
+          <div class="show-album-container">
+            <div class="show-album">
+              <div class="show-preview-item"
+                v-for="(item, index) in detail.photos"
+                :key="index"
+              >
+                <div class="show-poster">
+                  <img :src="item" class="fn-lazyload">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show-chief">
+          <h2>主创来了</h2>
+        </div>
+      </div>
+      <div>
+        <div class="show-comments">
+          <div class="show-comments-wrapper">
+            <h2>观众热评</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -81,23 +142,40 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Detail',
 
-  // data () {
-  //   return {
-  //     ins: 0,
-  //     tabs: [
-  //       { id: 1, name: '简介' },
-  //       { id: 2, name: '影评' },
-  //       { id: 3, name: '更多' }
-  //     ]
-  //   }
-  // },
+  data () {
+    return {
+      isLimited: true,
+      isOk: true,
+      tabs: [
+        { id: 1, name: '简介' },
+        { id: 2, name: '影评' },
+        { id: 3, name: '更多' }
+      ],
+      ins: 0,
+      lefts: 55
+    }
+  },
 
   computed: {
     ...mapState('detail', ['detailList'])
   },
 
   methods: {
-    ...mapActions('detail', ['getDetailList'])
+    ...mapActions('detail', ['getDetailList']),
+    zhankai () {
+      this.isLimited = !this.isLimited
+      this.isOk = !this.isOk
+    },
+    qiehuan (index) {
+      this.ins = index
+      if (index === 0) {
+        this.lefts = 55
+      } else if (index === 1) {
+        this.lefts = 180
+      } else if (index === 2) {
+        this.lefts = 305
+      }
+    }
   },
 
   created () {
@@ -111,7 +189,6 @@ export default {
   background-color: #000;
   margin-bottom: -4%;
   .poster {
-    background-image: url(https://gw.alicdn.com/i4/TB1HAtaVCzqK1RjSZFjXXblCFXa_.jpg_800x800Q30.jpg);
     height: 234px;
     position: relative;
     background-repeat: no-repeat;
@@ -154,7 +231,6 @@ export default {
     border-radius: 4px;
     background-color: #fff;
     .poster {
-      background-image: url(https://gw.alicdn.com/i1/TB1lqZLUW6qK1RjSZFmXXX0PFXa_.jpg_400x400Q30.jpg);
       width: 88px;
       height: 129px;
       background-position: 50%;
@@ -298,6 +374,162 @@ export default {
       border-radius: 100px;
       background-color: #000;
       transition: .5s;
+    }
+  }
+}
+
+.show-desc {
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  padding-top: 15px;
+  .line-limited {
+    white-space: normal;
+    position: relative;
+    height: 84px;
+    max-height: 84px;
+  }
+  p.line-limit {
+    white-space: normal;
+  }
+  p {
+    white-space: nowrap;
+    text-align: justify;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 29px;
+    color: #333;
+    overflow: hidden;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  p.line-limited .show-desc-expand-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: inline-block;
+    color: #349cec;
+    width: 52px;
+    background: linear-gradient(90deg,hsla(0,0%,100%,0),#fff,#fff,#fff);
+    text-align: right;
+    line-height: 25px;
+  }
+}
+
+.show-artists {
+  background-color: #fff;
+  position: relative;
+  .show-artists-container {
+    margin-left: 16px;
+    position: relative;
+    overflow-x: scroll;
+    .show-artist-list {
+      padding-right: 18px;
+      float: left;
+      display: flex;
+      .show-artist {
+        display: block;
+        width: 87px;
+        text-align: center;
+        margin-right: 5px;
+        .show-poster {
+          width: 87px;
+          height: 120px;
+          background: #ccc 50% no-repeat;
+          background-size: cover;
+          overflow: hidden;
+          margin: 0 auto;
+          border-radius: 2px;
+        }
+        dl {
+          margin-top: 8px;
+          dt {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            line-height: 23px;
+            max-height: 37px;
+            word-wrap: break-word;
+            position: relative;
+            width: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          dd {
+            color: #777;
+            font-size: 12px;
+            white-space: normal!important;
+            width: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          dd.profession {
+            display: block;
+            white-space: nowrap!important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 18px;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.show-albums {
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  .show-album-container {
+    margin-left: 16px;
+    position: relative;
+    overflow-x: scroll;
+    .show-album {
+      padding-right: 18px;
+      float: left;
+      display: flex;
+      .show-preview-item {
+        height: 136px;
+        text-align: center;
+        margin-right: 5px;
+        .show-poster {
+          position: relative;
+          img {
+            max-height: 117px;
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+
+div h2 {
+  font-size: 17px;
+  line-height: 37px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  color: #000;
+  padding-left: 16px;
+  font-weight: 400;
+}
+
+.show-chief {
+  background-color: #fff;
+}
+
+.show-comments {
+  background-color: #fff;
+  position: relative;
+  .show-comments-wrapper {
+    background: #fff;
+    h2 {
+      padding-top: 14px;
     }
   }
 }
