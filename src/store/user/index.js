@@ -1,24 +1,28 @@
+<<<<<<< HEAD
 // import { Toast } from 'vant'
+=======
+>>>>>>> router
 
 const state = {
   userInfo: {
     username: '',
-    password: ''
+    password: '',
+    isLogin: false
   },
-  isLogin: false,
+
   USER_LIST: 'USER_LIST'
 }
-// const mutations = {
-//   chgUserName (state, payload) {
-//     state.username = payload
-//   },
-//   chgUserPwd (state, payload) {
-//     state.password = payload
-//   },
-//   chgIsLogin (state, isLogin) {
-//     state.isLogin = isLogin
-//   }
-// }
+const mutations = {
+  chgUserName (state, payload) {
+    state.username = payload
+  },
+  chgUserPwd (state, payload) {
+    state.password = payload
+  },
+  chgIsLogin (state, isLogin) {
+    state.isLogin = isLogin
+  }
+}
 
 const methods = {
 
@@ -36,7 +40,7 @@ const actions = {
       } else {
         reject(new Error('err'))
       }
-      let user = userList.find(item => (item.username === username && item.password === password))
+      let user = userList.find(item => (item.username === username && item.password === password && item.isLogin === true))
       console.log(user)
       if (user) {
         // 登录成功
@@ -71,5 +75,6 @@ export default {
   state,
   getters,
   actions,
-  methods
+  methods,
+  mutations
 }

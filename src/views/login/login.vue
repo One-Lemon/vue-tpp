@@ -30,7 +30,8 @@ export default {
       // username: 'admin',
       // password: '123456'
       username: '',
-      password: ''
+      password: '',
+      isLogin: true
     }
   },
   methods: {
@@ -47,7 +48,7 @@ export default {
           duration: 0,
           message: '登录中....'
         })
-        this.$store.dispatch('login', { username: this.username, password: this.password })
+        this.$store.dispatch('login', { username: this.username, password: this.password, isLogin: this.isLogin })
           .then(() => {
             this.$router.push('/mine')
             this.$toast.clear()

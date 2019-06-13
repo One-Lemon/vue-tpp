@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+<<<<<<< HEAD
 // import { Toast } from 'vant'
+=======
+>>>>>>> router
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -88,9 +91,15 @@ const router = new VueRouter({
       component: () => import('../views/search/search.vue')
     },
     {
+<<<<<<< HEAD
       path: '/pay',
       name: 'pay',
       component: () => import('../views/pay/index.vue')
+=======
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/login/test.vue')
+>>>>>>> router
     },
     {
       path: '*',
