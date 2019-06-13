@@ -3,7 +3,7 @@
       <div class="header-wrapper" symbol="V0">
       <div class="header-userinfo">
         <div class="  header-wrapper-avatar" ></div>
-        <p>123156432</p>
+        <p>{{ }}</p>
       </div>
     </div>
     <div class="group-wrapper">
@@ -34,6 +34,19 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+
+  methods: {
+    getUserInfo () {
+      // eslint-disable-next-line no-undef
+      window.localStorage.userInfo = JSON.stringify(userInfo) // 将storage转变为字符串存储
+      // let job = JSON.parse(window.localStorage.userInfo)
+    }
+  }
+}
+</script>
 
 <style lang="less">
 @import '~@/styles/common/mixin.less';
@@ -141,3 +154,5 @@
   }
 
 </style>
+
+exports de

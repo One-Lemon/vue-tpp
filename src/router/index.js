@@ -103,17 +103,8 @@ router.beforeEach((to, from, next) => {
   if (to.meta.isLogin) {
     // 判断是否有登录
     if (window.localStorage.getItem('userInfo')) {
-      Toast.loading({
-        duration: 0,
-        message: '登录中....'
-      })
-      // 有登录
       next()
     } else {
-      // 没有登录
-      // next('/login')
-      // eslint-disable-next-line no-unused-expressions
-      // <van-loading type="spinner" />
       next({
         path: '/login',
         query: {
@@ -124,11 +115,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
-
-// 全局后置守卫，后置守卫没有 next
-router.afterEach((to, from) => {
-
 })
 
 export default router

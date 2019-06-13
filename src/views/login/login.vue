@@ -3,10 +3,10 @@
     <div class="logo"></div>
     <div class="am-list">
       <div class="am-list-item">
-        <input type="text" class="lg-reqguired" name="name"  placeholder="手机号/邮箱/会员名">
+        <input type="text" v-model="username" class="lg-reqguired" name="name"  placeholder="手机号/邮箱/会员名">
       </div>
       <div class="am-list-item">
-        <input type="password" class="lg-reqguired lg-password" name='pwd' placeholder="请输入密码">
+        <input type="password" v-model="password" class="lg-reqguired lg-password" name='pwd' placeholder="请输入密码">
       </div>
     </div>
     <div>
@@ -24,24 +24,38 @@
 </template>
 
 <script>
-// import axios from 'axios'
 export default {
+  data () {
+    return {
+      // username: 'admin',
+      // password: '123456'
+      username: '',
+      password: ''
+    }
+  },
   methods: {
+    checkFormData () {
+      if (!this.username || !this.password) {
+        this.$toast('用户和密码不能为空！！！')
+        return false
+      }
+      return true
+    },
     handleLogin () {
-      // axios.post('http://localhost:3000/users', { user: name })
-      //   .then(data => {
-      //     // eslint-disable-next-line eqeqeq
-      //     console.log(data)
-      //     if (data.status !== 200) {
-      //       // this.$Message.err(data.data.message)
-      //     } else {
-      //       this.$store.dispatch('userLogin', true)
-      //       localStorage.setItem('Flag', 'isLogin')
-      //       this.$Message.success(data.data.message)
-      //       let redirect = '/mine'
-      //       this.$router.replace(redirect)
-      //     }
-      // })
+      if (this.checkFormData()) {
+        this.$toast.loading({
+          duration: 0,
+          message: '登录中....'
+        })
+        this.$store.dispatch('login', { username: this.username, password: this.password })
+          .then(() => {
+            this.$router.push('/mine')
+            this.$toast.clear()
+          })
+          .catch(() => {
+            this.$toast('用户名或密码错误！！！')
+          })
+      }
     }
   }
 }
@@ -75,6 +89,7 @@ export default {
       outline: none;
       border: 0;
       color: #333;
+      background-color: transparent;
       &::-webkit-input-placeholder {
         color: #c0c0c0;
       }

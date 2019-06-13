@@ -5,7 +5,6 @@ import cinemas from './cinema/index'
 import detail from './detail'
 import city from './city'
 import user from './user/index'
-import login from './user/login'
 
 Vue.use(Vuex)
 
@@ -15,7 +14,6 @@ export default new Vuex.Store({
     cinemas,
     detail,
     city,
-    user,
-    login
+    user
   }
 })
