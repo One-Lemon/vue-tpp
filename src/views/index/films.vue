@@ -12,6 +12,9 @@
 import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
   name: 'films',
+  props: {
+    index: Function
+  },
   data () {
     return {
       activeClass: 0
@@ -45,6 +48,10 @@ export default {
   },
   created () {
     this.getFilmsList()
+    this.index(0)
+  },
+  activated () {
+    this.index(0)
   }
 }
 </script>

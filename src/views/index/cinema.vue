@@ -3,7 +3,7 @@
     <div class="Headnav">
       <Headnav></Headnav>
     </div>
-    
+
     <ul>
       <li class="border-bottom" v-for="cinema in cinemaList" :key="cinema.cinemaId">
         <router-link to="/cinemaDetails">
@@ -23,27 +23,34 @@
 </template>
 
 <script>
-import "@/styles/base.less";
-import Headnav from "@/components/Header/index.vue";
-import { mapActions, mapState } from "vuex";
+import '@/styles/base.less'
+import Headnav from '@/components/Header/index.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
+  props: {
+    index: Function
+  },
   components: {
     Headnav
   },
 
   computed: {
-    ...mapState("cinemas", ["cinemaList"])
+    ...mapState('cinemas', ['cinemaList'])
   },
 
   methods: {
-    ...mapActions("cinemas", ["getCinemaList"])
+    ...mapActions('cinemas', ['getCinemaList'])
   },
 
-  created() {
-    this.getCinemaList();
+  created () {
+    this.getCinemaList()
+    this.index(1)
+  },
+  activated () {
+    this.index(1)
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

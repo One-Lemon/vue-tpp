@@ -63,9 +63,7 @@ export default {
       if (city) {
         this.setCurrentCity(city)
       }
-      this.$router.push({
-        path: '/'
-      })
+      this.$router.back()
     },
     anchor (event) {
       let top = null

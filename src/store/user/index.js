@@ -1,4 +1,4 @@
-import { Toast } from 'vant'
+// import { Toast } from 'vant'
 
 const state = {
   userInfo: {

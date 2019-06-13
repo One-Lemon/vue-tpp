@@ -10,9 +10,9 @@
           <div class="director">导演：{{ item.director }}</div>
           <div class="actors">演员：{{ item.actors | actorsName}}</div>
         </router-link>
-        <div class="m-btn" @click="fn">
+        <router-link :to="{ name:'pay',params:{id:item.filmId  } }" class="m-btn">
           <a>{{ btn }}</a>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -35,11 +35,6 @@ export default {
         }
       }
       return name
-    }
-  },
-  methods: {
-    fn () {
-      console.log(this.list)
     }
   }
 }

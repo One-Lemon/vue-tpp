@@ -37,13 +37,21 @@
 
 <script>
 export default {
-
+  props: {
+    index: Function
+  },
   methods: {
     getUserInfo () {
       // eslint-disable-next-line no-undef
       window.localStorage.userInfo = JSON.stringify(userInfo) // 将storage转变为字符串存储
       // let job = JSON.parse(window.localStorage.userInfo)
     }
+  },
+  created () {
+    this.index(2)
+  },
+  activated () {
+    this.index(2)
   }
 }
 </script>
