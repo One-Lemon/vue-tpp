@@ -4,7 +4,7 @@
     class="m-item">
       <div class="m-info">
         <div class="m-photo"><img :src="item.poster" alt=""></div>
-        <router-link tag="div" to="/details" class="m-content">
+        <router-link tag="div" :to="{ name: 'details',params: { id: item.filmId } }" class="m-content">
           <div class="title">{{ item.name }}<i class="watch-type">{{ item.item.name }}</i></div>
           <div class="grade">淘票票评分 <i class="i-grade">{{ item.grade }}</i> </div>
           <div class="director">导演：{{ item.director }}</div>

@@ -51,6 +51,7 @@ const router = new VueRouter({
     },
     {
       path: '/details',
+      name: 'details',
       component: () => import('../views/details/index.vue')
     },
     {
@@ -90,7 +91,10 @@ const router = new VueRouter({
       path: '*',
       redirect: '/films'
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
 
 // eslint-disable-next-line no-unused-expressions

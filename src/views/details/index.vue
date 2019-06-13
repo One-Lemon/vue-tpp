@@ -179,7 +179,7 @@ export default {
   },
 
   created () {
-    this.getDetailList()
+    this.getDetailList(this.$route.params.id)
   }
 }
 </script>
