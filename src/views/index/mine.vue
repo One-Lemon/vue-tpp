@@ -1,9 +1,13 @@
 <template>
   <div>
       <div class="header-wrapper" symbol="V0">
+      <span class="iconfont icon-shezhi">
+        <van-button  type="danger" size="mini" class="quit" @click="fn">退出</van-button>
+      </span>
       <div class="header-userinfo">
         <div class="  header-wrapper-avatar" ></div>
-        <p>{{ }}</p>
+        <p >{{ getUserInfo.username }}</p>
+
       </div>
     </div>
     <div class="group-wrapper">
@@ -37,14 +41,27 @@
 
 <script>
 export default {
-
-  methods: {
+  data () {
+    return {
+    }
+  },
+  computed: {
     getUserInfo () {
-      // eslint-disable-next-line no-undef
-      window.localStorage.userInfo = JSON.stringify(userInfo) // 将storage转变为字符串存储
-      // let job = JSON.parse(window.localStorage.userInfo)
+      let job = JSON.parse(window.localStorage.getItem('userInfo'))
+      console.log(job)
+      return job
+    }
+  },
+  methods: {
+    fn () {
+      console.log(111)
+
+      let userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+      userInfo.isLogin = false
+      console.log(userInfo)
     }
   }
+
 }
 </script>
 
@@ -63,6 +80,21 @@ export default {
     background-position: 50%;
     background-repeat: no-repeat;
     background-color: #fff;
+    .icon-shezhi{
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .quit{
+        background-color: #fff;
+        border: 0;
+        font-size: 14px;
+        color: #000
+      }
+    }
   }
   .header-userinfo{
     display:flex;
@@ -153,6 +185,4 @@ export default {
       }
   }
 
-</style>
-
-exports de
+</style>exports de
