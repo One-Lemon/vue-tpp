@@ -5,31 +5,58 @@ export default {
   namespaced: true,
 
   state: {
-    cinemaList: [],
+    cinemaList: [], // 请求来的所有数据
+    curArea: '全城', // 默认显示全城
     loading: false
   },
 
   mutations: {
     SETCINEMALIST (state, list) {
+      // Vue.set(state, 'cinemaList', list)
       state.cinemaList = list
     },
     SETLOADING (state, bol) {
       state.loading = bol
+    },
+    SETCURAREA (state, name) {
+      state.curArea = name
+    }
+  },
+
+  getters: {
+    newDistrictList (state) {
+      let obj = {}
+      obj['全城'] = state.cinemaList
+      state.cinemaList.forEach(cinema => {
+        let districtName = cinema.districtName
+
+        // console.log(cinema)
+        if (!obj[districtName]) {
+          obj[districtName] = []
+        }
+        obj[districtName].push(cinema)
+      })
+
+      // console.log(arr)
+      return obj
+    },
+    showCinemaList (state, getters) {
+      return getters.newDistrictList[state.curArea]
     }
   },
 
   actions: {
-    getCinemaList ({ commit, state }, isLoadMore) {
+    getCinemaList ({ commit, state, rootState }, isLoadMore) {
       // 请求之前
       Toast.loading({
         duration: 0,
         message: '加载中...'
       })
       commit('SETLOADING', true)// 请求中
-
+      // console.log(rootState.city.currentCity.cityId)
       http.get('/gateway', {
         params: {
-          cityId: 440300,
+          cityId: rootState.city.currentCity.cityId,
           ticketFlag: 1,
           k: 5919910
         },
@@ -47,9 +74,11 @@ export default {
           commit('SETCINEMALIST', res.data.cinemas)
         }
         commit('SETLOADING', false)// 请求完成
+        state.districtList = {}
         // 请求成功，关闭 loading
         Toast.clear()
       })
     }
+
   }
 }

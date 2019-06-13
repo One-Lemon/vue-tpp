@@ -1,10 +1,10 @@
 <template>
-  <div id="head-outer">
+  <div id="head-outer" >
     <div class="header-inner border-bottom">
       <div class="city">
         <router-link to="/city" class="adress">
           <img src="https://gw.alicdn.com/tfs/TB1mKkzl9zqK1RjSZFpXXakSXXa-50-50.svg" alt>
-          <span>深圳</span>
+          <span>{{currentCity.name}}</span>
           <i class="iconfont icon-icon"></i>
         </router-link>
       </div>
@@ -15,7 +15,7 @@
           <i class="iconfont icon-xiala1" style="color:#ff4d64" v-else></i>
         </li>
         <li class="border-left" @click="doList">
-          <span :class="{'active':yes}">综合排序</span>
+          <span :class="{'active':yes}">{{title}}</span>
           <i class="iconfont icon-xiala" v-if="!yes"></i>
           <i class="iconfont icon-xiala1" style="color:#ff4d64" v-else></i>
         </li>
@@ -32,17 +32,16 @@
       </ul>
     </div>
     <!-- 全城子组件 -->
-    <van-tabs v-model="active" class="place" v-if="isOk">
+     <van-tabs v-model="active" v-if="isOk">
       <van-tab title="商圈" class="place">
-        <span class="border">全城</span>
-        <span class="border">福田区</span>
-        <span class="border">南山区</span>
-        <span class="border">龙岗区</span>
-        <span class="border">龙华区</span>
-        <span class="border">宝安区</span>
-        <span class="border">罗湖区</span>
-        <span class="border">盐田区</span>
-        <span class="border">坪山区</span>
+        <!-- <span class="border" @click="allCinemas" :class="{'on':isOn}">全城</span> -->
+        <span
+         class="border"
+         v-for="(val,key,index) in newDistrictList"
+         :key="index"
+         :class="{on:index===ins}"
+         @click="sortCinema(key,index)"
+        >{{key}}</span>
       </van-tab>
       <van-tab title="地铁" class="subway">
         <span class="border">1号线</span>
@@ -57,9 +56,14 @@
     </van-tabs>
     <!-- 综合排序子组件-->
     <van-badge-group :active-key="activeKey" @change="onChange" v-if="yes">
-      <van-badge title="综合排序"/>
-      <van-badge title="离我最近"/>
-      <van-badge title="价格最低"/>
+      <van-badge
+       v-for="(item,index) in dataList"
+       :key="index"
+       :title="item.name"
+       @click="changeTitle(item.name)"
+       />
+      <!-- <van-badge title="离我最近"/>
+      <van-badge title="价格最低"/> -->
     </van-badge-group>
 
     <!-- 特色子组件 -->
@@ -85,55 +89,87 @@
       <span class="border">4K厅</span>
       <span class="border">可停车</span>
     </div>
+    <div id="bg" v-show="Ok||yes||isOk"></div>
+
   </div>
 </template>
 <script>
-import Vue from "vue";
-import { Tab, Tabs, Badge, BadgeGroup } from "vant";
+import '@/styles/base.less'
+import Vue from 'vue'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import { Tab, Tabs, Badge, BadgeGroup } from 'vant'
 Vue.use(Tab)
   .use(Tabs)
   .use(Badge)
-  .use(BadgeGroup);
-
-import "@/styles/base.less";
-
-import { mapState, mapActions } from "vuex";
+  .use(BadgeGroup)
 
 export default {
-  data() {
+  data () {
     return {
       isOk: false,
       yes: false,
       Ok: false,
-      active: 2, //vant 选项卡的功能
-      activeKey: 0
-    };
+      active: 2, // vant 选项卡的功能
+      activeKey: 0,
+      allList: [],
+      ins: 0,
+      dataList: [
+        { name: '综合排序' },
+        { name: '离我最近' },
+        { name: '价格最低' }
+      ],
+      title: '综合排序'
+    }
+  },
+  computed: {
+    ...mapState('city', ['currentCity']),
+    ...mapGetters('cinemas', ['newDistrictList']),
+    ...mapState('cinemas', ['cinemaList'])
   },
   methods: {
-    sortPlcae() {
-      this.isOk = !this.isOk;
-      (this.yes = false), (this.Ok = false);
+    ...mapMutations('cinemas', ['SETCURAREA']),
+    sortPlcae () {
+      this.isOk = !this.isOk
+      // (this.yes = false), (this.Ok = false)
+      // console.log(this.newDistrictList)
     },
-    doList() {
-      this.yes = !this.yes;
-      (this.isOk = false), (this.Ok = false);
+    doList () {
+      this.yes = !this.yes
+      // (this.isOk = false), (this.Ok = false)
     },
-    doChac() {
-      this.Ok = !this.Ok;
-      (this.isOk = false), (this.yes = false);
+    doChac () {
+      this.Ok = !this.Ok
+      // (this.isOk = false), (this.yes = false)
     },
-    onChange(key) {
-      this.activeKey = key;
-      this.yes = !this.yes;
+    onChange (key) {
+      this.activeKey = key
+      this.yes = !this.yes
+    },
+    changeTitle (name) { // 点击综合排序下拉框将标题替换成点击的
+      this.title = name
+      if (this.title === '价格最低') {
+        console.log(this.cinemaList)
+      }
+    },
+    sortCinema (key, index) { // 点击区域分类，将影院数据显示当前区域的
+      this.SETCURAREA(key)
+      this.isOk = false
+      this.ins = index
+      this.isOn = false
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
 #head-outer {
   width: 100%;
-  height: 93vh;
+  height: calc(100% - 49px);
+  display: flex;
+  flex-direction: column
+}
+#bg{
+  flex: 1;
   background: rgba(0, 0, 0, 0.3);
 }
 .header-inner {
@@ -199,7 +235,9 @@ li {
   top: 15%;
   right: 0%;
 }
-
+.van-tabs{
+  background:#fff;
+}
 .van-tab__pane {
   background: #fff;
   z-index: 1000;
@@ -248,8 +286,17 @@ li {
 #feature .van-tab {
   background-color: #fff;
 }
+
+.van-badge-group{
+  background: #fff;
+}
 .active {
   color: #ff4d64;
+}
+.on{
+  color:#ff4d64;
+  border:1px solid red;
+  border-radius: 4px;
 }
 
 </style>

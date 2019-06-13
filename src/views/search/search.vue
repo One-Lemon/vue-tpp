@@ -10,7 +10,7 @@
     </div>
     <ul class="result">
       <li class="border-bottom"
-       v-for="item in resultList" 
+       v-for="item in resultList"
        :key="item.name">
         <router-link to="/cinemaDetails">
           <p class="cinemaName">
@@ -29,56 +29,54 @@
   </div>
 </template>
 <script>
-import "@/styles/base.less";
-import { mapActions, mapState } from "vuex";
-import { log } from 'util';
-let that;
+import '@/styles/base.less'
+import { mapActions, mapState } from 'vuex'
+// import { log } from 'util'
+let that
 export default {
-  data() {
+  data () {
     return {
-      searchVal: "",
+      searchVal: '',
       resultList: []
-    };
+    }
   },
   computed: {
-    ...mapState("cinemas", ["cinemaList"])
+    ...mapState('cinemas', ['cinemaList'])
   },
 
   methods: {
-    ...mapActions("cinemas", ["getCinemaList"]),
+    ...mapActions('cinemas', ['getCinemaList']),
     // 点击叉叉时清除搜索框内容
-    clearVal(){
-      this.searchVal=''
+    clearVal () {
+      this.searchVal = ''
     }
 
   },
 
-  filters:{
-    changColor:function(value){
-      
+  filters: {
+    changColor: function (value) {
       var newVal = value.replace(that.searchVal, `<span style="color:#ff4d64;">${that.searchVal}</span>`)
-        return newVal;
-
+      return newVal
     }
   },
 
   beforeCreate: function () {
     // 用filter过滤器时，因为this指向会改变，所以得先var 一个全局变量来改变this指向
-     that = this;
+    that = this
   },
 
-  created() {
-    this.getCinemaList();
+  created () {
+    this.getCinemaList()
   },
 
   watch: {
     searchVal: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal) {
-          this.resultList=[];
+          this.resultList = []
           this.cinemaList.forEach(item => {
-            if (item.name.indexOf(newVal) >= 0 ||item.address.indexOf(newVal) >= 0) {
-              this.resultList.push(item);
+            if (item.name.indexOf(newVal) >= 0 || item.address.indexOf(newVal) >= 0) {
+              this.resultList.push(item)
             }
           })
         } else {
