@@ -5,7 +5,7 @@
     </div>
     
     <ul>
-      <li class="border-bottom" v-for="cinema in cinemaList" :key="cinema.cinemaId">
+      <li class="border-bottom" v-for="cinema in showCinemaList" :key="cinema.index">
         <router-link to="/cinemaDetails">
           <p class="cinemaName">
             <span>{{cinema.name}}</span>
@@ -25,7 +25,7 @@
 <script>
 import "@/styles/base.less";
 import Headnav from "@/components/Header/index.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -33,7 +33,8 @@ export default {
   },
 
   computed: {
-    ...mapState("cinemas", ["cinemaList"])
+    ...mapState("cinemas", ["cinemaList"]),
+    ...mapGetters('cinemas', ['showCinemaList'])
   },
 
   methods: {
@@ -58,11 +59,10 @@ export default {
 .Headnav {
   width:100%;
   flex: 1;
-  height: 45px;
+  height: 100%;
   position: fixed;
   top:0;
   left:0;
-  background:#fff;
   z-index: 10;
 }
 ul {
