@@ -7,7 +7,6 @@ export default {
   state: {
     cinemaList: [], // 请求来的所有数据
     curArea: '全城', // 默认显示全城
-    // districtList: {},
     loading: false
   },
 
@@ -18,9 +17,6 @@ export default {
     },
     SETLOADING (state, bol) {
       state.loading = bol
-    },
-    SETNEWLIST (state, list) {
-      state.cinemaList = list
     },
     SETCURAREA (state, name) {
       state.curArea = name

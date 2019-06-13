@@ -53,12 +53,10 @@ export default {
 
   },
 
-  filters:{
+  filters:{//将搜索出来的影院名和地区，让带有搜索字的都标红
     changColor:function(value){
-      
       var newVal = value.replace(that.searchVal, `<span style="color:#ff4d64;">${that.searchVal}</span>`)
         return newVal;
-
     }
   },
 
