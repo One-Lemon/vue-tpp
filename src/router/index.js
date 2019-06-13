@@ -92,11 +92,6 @@ const router = new VueRouter({
       component: () => import('../views/search/search.vue')
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/login/test.vue')
-    },
-    {
       path: '*',
       redirect: '/films'
     }
