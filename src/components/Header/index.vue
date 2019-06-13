@@ -10,7 +10,7 @@
       </div>
       <ul class="sort">
         <li class="border-left allPlace" @click="sortPlcae">
-          <span :class="{'active':isOk}">全城</span>
+          <span :class="{'active':isOk}">{{area}}</span>
           <i class="iconfont icon-xiala" v-if="!isOk"></i>
           <i class="iconfont icon-xiala1" style="color:#ff4d64" v-else></i>
         </li>
@@ -68,26 +68,10 @@
 
     <!-- 特色子组件 -->
     <div id="feature" v-if="Ok">
-      <span class="border">不限</span>
-      <span class="border">退票</span>
-      <span class="border">改签</span>
-      <span class="border">观影小食</span>
-      <span class="border">IMAX厅</span>
-      <span class="border">CGS中国巨幕厅</span>
-      <span class="border">MX4D厅</span>
-      <span class="border">4DX厅</span>
-      <span class="border">SCREENX</span>
-      <span class="border">杜比影院</span>
-      <span class="border">DTS临境音</span>
-      <span class="border">StarMAX</span>
-      <span class="border">艺术影厅</span>
-      <span class="border">巨幕厅</span>
-      <span class="border">杜比全景声厅</span>
-      <span class="border">realD厅</span>
-      <span class="border">激光厅</span>
-      <span class="border">4D厅</span>
-      <span class="border">4K厅</span>
-      <span class="border">可停车</span>
+      <span class="border"
+        v-for="item in tags"
+        :key="item.id"
+      >{{item.name}}</span>
     </div>
     <div id="bg" v-show="Ok||yes||isOk"></div>
 
@@ -113,12 +97,36 @@ export default {
       activeKey: 0,
       allList: [],
       ins: 0,
+      isOn: true,
       dataList: [
         { name: '综合排序' },
         { name: '离我最近' },
         { name: '价格最低' }
       ],
-      title: '综合排序'
+      title: '综合排序',
+      tags: [
+        { id: 1, name: '不限' },
+        { id: 2, name: '退票' },
+        { id: 3, name: '改签' },
+        { id: 4, name: '观影小食' },
+        { id: 5, name: 'IMAX厅' },
+        { id: 6, name: 'CGS中国巨幕厅' },
+        { id: 7, name: 'MX4D厅' },
+        { id: 8, name: '4DX厅' },
+        { id: 9, name: 'SCREENX' },
+        { id: 10, name: '杜比影院' },
+        { id: 11, name: 'DTS临境音' },
+        { id: 12, name: 'StarMAX' },
+        { id: 13, name: '艺术影厅' },
+        { id: 14, name: '巨幕厅' },
+        { id: 15, name: '杜比全景声厅' },
+        { id: 16, name: 'realD厅' },
+        { id: 17, name: '激光厅' },
+        { id: 18, name: '4D厅' },
+        { id: 19, name: '4K厅' },
+        { id: 20, name: '可停车' }
+      ],
+      area: '全城'
     }
   },
   computed: {
@@ -130,16 +138,19 @@ export default {
     ...mapMutations('cinemas', ['SETCURAREA']),
     sortPlcae () {
       this.isOk = !this.isOk
-      // (this.yes = false), (this.Ok = false)
+      this.yes = false
+      this.Ok = false
       // console.log(this.newDistrictList)
     },
     doList () {
       this.yes = !this.yes
-      // (this.isOk = false), (this.Ok = false)
+      this.isOk = false
+      this.Ok = false
     },
     doChac () {
       this.Ok = !this.Ok
-      // (this.isOk = false), (this.yes = false)
+      this.isOk = false
+      this.yes = false
     },
     onChange (key) {
       this.activeKey = key
@@ -148,7 +159,7 @@ export default {
     changeTitle (name) { // 点击综合排序下拉框将标题替换成点击的
       this.title = name
       if (this.title === '价格最低') {
-        console.log(this.cinemaList)
+        // console.log(this.cinemaList)
       }
     },
     sortCinema (key, index) { // 点击区域分类，将影院数据显示当前区域的
@@ -156,6 +167,7 @@ export default {
       this.isOk = false
       this.ins = index
       this.isOn = false
+      this.area = key
     }
   }
 }
