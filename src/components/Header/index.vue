@@ -174,7 +174,6 @@ export default {
         // let curentArea=document.getElementById('currentArea').innerHTML;
         // //let curentArea=element.innerHtml
         // console.log(curentArea)
-        this.SETOPEN(1)
         // this.SETCURAREA(curentArea)
       }
     },
