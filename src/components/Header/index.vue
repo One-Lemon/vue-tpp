@@ -10,7 +10,7 @@
       </div>
       <ul class="sort">
         <li class="border-left allPlace" @click="sortPlcae">
-          <span :class="{'active':isOk}">{{area}}</span>
+          <span :class="{'active':isOk}" id="currentArea">{{area}}</span>
           <i class="iconfont icon-xiala" v-if="!isOk"></i>
           <i class="iconfont icon-xiala1" style="color:#ff4d64" v-else></i>
         </li>
@@ -62,17 +62,18 @@
        :title="item.name"
        @click="changeTitle(item.name)"
        />
-      <!-- <van-badge title="离我最近"/>
-      <van-badge title="价格最低"/> -->
     </van-badge-group>
 
     <!-- 特色子组件 -->
     <div id="feature" v-if="Ok">
       <span class="border"
-        v-for="item in tags"
+        v-for="(item,index) in tags"
         :key="item.id"
+        :class="{on:index===tagsId}"
+        @click="changTag(index)"
       >{{item.name}}</span>
     </div>
+    <!-- 点击后显示背景色 -->
     <div id="bg" v-show="Ok||yes||isOk"></div>
 
   </div>
@@ -126,21 +127,22 @@ export default {
         { id: 19, name: '4K厅' },
         { id: 20, name: '可停车' }
       ],
-      area: '全城'
+      area: '全城',
+      tagsId:0
     }
   },
   computed: {
     ...mapState('city', ['currentCity']),
     ...mapGetters('cinemas', ['newDistrictList']),
-    ...mapState('cinemas', ['cinemaList'])
+    ...mapState('cinemas', ['cinemaList']),
+    ...mapGetters('cinemas',['showCinemaList'])
   },
   methods: {
-    ...mapMutations('cinemas', ['SETCURAREA']),
+    ...mapMutations('cinemas', ['SETCURAREA','SETOPEN']),
     sortPlcae () {
       this.isOk = !this.isOk
       this.yes = false
       this.Ok = false
-      // console.log(this.newDistrictList)
     },
     doList () {
       this.yes = !this.yes
@@ -156,18 +158,29 @@ export default {
       this.activeKey = key
       this.yes = !this.yes
     },
-    changeTitle (name) { // 点击综合排序下拉框将标题替换成点击的
-      this.title = name
-      if (this.title === '价格最低') {
-        // console.log(this.cinemaList)
-      }
-    },
     sortCinema (key, index) { // 点击区域分类，将影院数据显示当前区域的
       this.SETCURAREA(key)
       this.isOk = false
       this.ins = index
       this.isOn = false
       this.area = key
+    },
+    changeTitle (name) { // 点击综合排序下拉框将标题替换成点击的
+      this.title = name
+      if (this.title === '价格最低') {// 点击价格最低，将列表进行价格排序
+        this.SETOPEN()
+      }
+      if(this.title === '综合排序'){// 点击综合排序
+        // let curentArea=document.getElementById('currentArea').innerHTML;
+        // //let curentArea=element.innerHtml
+        // console.log(curentArea)
+        this.SETOPEN(1)
+        // this.SETCURAREA(curentArea)
+      }
+    },
+    changTag(index){// 点击改变头部特色列表的显示标签
+      this.tagsId=index
+      this.Ok=false
     }
   }
 }

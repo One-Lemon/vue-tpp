@@ -7,7 +7,8 @@ export default {
   state: {
     cinemaList: [], // 请求来的所有数据
     curArea: '全城', // 默认显示全城
-    loading: false
+    loading: false,
+    open: false
   },
 
   mutations: {
@@ -20,6 +21,9 @@ export default {
     },
     SETCURAREA (state, name) {
       state.curArea = name
+    },
+    SETOPEN (state) {
+      state.open = true
     }
   },
 
@@ -41,6 +45,11 @@ export default {
       return obj
     },
     showCinemaList (state, getters) {
+      if (state.open) {
+        getters.newDistrictList[state.curArea].sort((a, b) => {
+          return a.lowPrice < b.lowPrice ? -1 : 1
+        })
+      }
       return getters.newDistrictList[state.curArea]
     }
   },
