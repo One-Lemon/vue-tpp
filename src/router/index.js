@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-<<<<<<< HEAD
-// import { Toast } from 'vant'
-=======
->>>>>>> router
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -16,15 +12,9 @@ const router = new VueRouter({
           path: 'films',
           component: () => import('../views/index/films.vue'),
           children: [
-            // {
-            //   path: 'list',
-            //   name: 'list',
-            //   component: () => import('../views/index/list.vue')
-            // },
             {
               path: '/',
               component: () => import('../views/index/list.vue')
-              // redirect: 'list'
             }
           ]
         },
@@ -43,7 +33,6 @@ const router = new VueRouter({
         },
         {
           path: '/',
-          // component: () => import('../views/index/films.vue')
           redirect: 'films'
         }
       ]
@@ -91,15 +80,9 @@ const router = new VueRouter({
       component: () => import('../views/search/search.vue')
     },
     {
-<<<<<<< HEAD
       path: '/pay',
       name: 'pay',
       component: () => import('../views/pay/index.vue')
-=======
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/login/test.vue')
->>>>>>> router
     },
     {
       path: '*',

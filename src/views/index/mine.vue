@@ -41,18 +41,10 @@
 
 <script>
 export default {
-<<<<<<< HEAD
   props: {
     index: Function
   },
-  methods: {
-=======
-  data () {
-    return {
-    }
-  },
   computed: {
->>>>>>> router
     getUserInfo () {
       let job = JSON.parse(window.localStorage.getItem('userInfo'))
       console.log(job)
@@ -74,7 +66,6 @@ export default {
   activated () {
     this.index(2)
   }
-
 }
 </script>
 
@@ -198,4 +189,4 @@ export default {
       }
   }
 
-</style>exports de
+</style>

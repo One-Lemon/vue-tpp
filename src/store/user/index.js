@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 // import { Toast } from 'vant'
-=======
->>>>>>> router
 
 const state = {
   userInfo: {
