@@ -1,8 +1,8 @@
 <template>
   <div>
       <div class="header-wrapper" symbol="V0">
-      <span class="iconfont icon-shezhi">
-        <van-button  type="danger" size="mini" class="quit" @click="fn">退出</van-button>
+      <span class="iconfont icon-shezhi" @click="dianji">
+        <van-button v-show="isOk"  type="danger" size="mini" class="quit" @click="exit">退出</van-button>
       </span>
       <div class="header-userinfo">
         <div class="  header-wrapper-avatar" ></div>
@@ -44,6 +44,11 @@ export default {
   props: {
     index: Function
   },
+  data () {
+    return {
+      isOk: false
+    }
+  },
   computed: {
     getUserInfo () {
       let job = JSON.parse(window.localStorage.getItem('userInfo'))
@@ -52,12 +57,16 @@ export default {
     }
   },
   methods: {
-    fn () {
-      console.log(111)
-
+    exit () {
       let userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
       userInfo.isLogin = false
-      console.log(userInfo)
+      window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+      if (!userInfo.isLogin) {
+        this.$router.replace('/login')
+      }
+    },
+    dianji () {
+      this.isOk = true
     }
   },
   created () {
@@ -96,7 +105,8 @@ export default {
         background-color: #fff;
         border: 0;
         font-size: 14px;
-        color: #000
+        color: #000;
+        margin-top: 5px;
       }
     }
   }

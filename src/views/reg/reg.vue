@@ -43,7 +43,7 @@ export default {
         .then(() => {
           // 注册成功
           this.$toast({
-            duration: 3000,
+            duration: 2000,
             message: '注册成功, 3秒后跳转登录页'
           })
           setTimeout(() => {
