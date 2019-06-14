@@ -128,17 +128,17 @@ export default {
         { id: 20, name: '可停车' }
       ],
       area: '全城',
-      tagsId:0
+      tagsId: 0
     }
   },
   computed: {
     ...mapState('city', ['currentCity']),
     ...mapGetters('cinemas', ['newDistrictList']),
     ...mapState('cinemas', ['cinemaList']),
-    ...mapGetters('cinemas',['showCinemaList'])
+    ...mapGetters('cinemas', ['showCinemaList'])
   },
   methods: {
-    ...mapMutations('cinemas', ['SETCURAREA','SETOPEN']),
+    ...mapMutations('cinemas', ['SETCURAREA', 'SETOPEN']),
     sortPlcae () {
       this.isOk = !this.isOk
       this.yes = false
@@ -167,19 +167,19 @@ export default {
     },
     changeTitle (name) { // 点击综合排序下拉框将标题替换成点击的
       this.title = name
-      if (this.title === '价格最低') {// 点击价格最低，将列表进行价格排序
+      if (this.title === '价格最低') { // 点击价格最低，将列表进行价格排序
         this.SETOPEN()
       }
-      if(this.title === '综合排序'){// 点击综合排序
+      if (this.title === '综合排序') { // 点击综合排序
         // let curentArea=document.getElementById('currentArea').innerHTML;
         // //let curentArea=element.innerHtml
         // console.log(curentArea)
         // this.SETCURAREA(curentArea)
       }
     },
-    changTag(index){// 点击改变头部特色列表的显示标签
-      this.tagsId=index
-      this.Ok=false
+    changTag (index) { // 点击改变头部特色列表的显示标签
+      this.tagsId = index
+      this.Ok = false
     }
   }
 }
